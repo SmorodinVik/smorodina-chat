@@ -8,7 +8,7 @@ import '../assets/application.scss';
 // import ReactDOM from 'react-dom';
 // import React from 'react';
 
-import app from './App';
+import app from './App.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
