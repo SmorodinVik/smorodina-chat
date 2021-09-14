@@ -2,8 +2,8 @@ import React from 'react';
 
 export default () => (
   <div className="container p-3">
-    <h2 className="text-center mb-4">404</h2>
-    <p className="text-center">страница не найдена</p>
-    <a href="/login">На главную</a>
+    <h1 className="text-center mb-4">404</h1>
+    <p className="text-center text-muted">страница не найдена</p>
+    <a className="text-center" href="/login">на главную</a>
   </div>
 );
