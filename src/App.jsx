@@ -14,7 +14,7 @@ import { Navbar } from 'react-bootstrap';
 import LoginPage from './LoginPage.jsx';
 
 export default () => (
-  <div className="d-flex flex-colomn h-100">
+  <div className="d-flex flex-column h-100">
     <Router>
       <Navbar bg="light" expand="lg">
         <div className="container">
