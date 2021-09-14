@@ -13,7 +13,7 @@ import { Navbar } from 'react-bootstrap';
 
 import LoginPage from './LoginPage.jsx';
 
-const App = () => (
+export default () => (
   <Router>
     <Navbar bg="light" expand="lg">
       <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
@@ -30,5 +30,3 @@ const App = () => (
     </div>
   </Router>
 );
-
-export default App;

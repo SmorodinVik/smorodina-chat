@@ -1,4 +1,5 @@
 // @ts-check
+import app from './App.jsx';
 
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
@@ -8,13 +9,11 @@ import '../assets/application.scss';
 // import ReactDOM from 'react-dom';
 // import React from 'react';
 
-// import app from './App.jsx';
-
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-// app();
+app();
 
 const p = document.createElement('p');
 p.classList.add('card-text');
