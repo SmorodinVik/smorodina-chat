@@ -6,8 +6,8 @@ import {
   Switch,
   Route,
   Link,
-  useRouteMatch,
-  useParams,
+  // useRouteMatch,
+  // useParams,
 } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
