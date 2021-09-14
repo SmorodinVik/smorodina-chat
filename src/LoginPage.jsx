@@ -38,7 +38,7 @@ const LoginPage = () => {
         <div className="card shadow-sm">
           <div className="card-body row p-5">
             <Form onSubmit={f.handleSubmit}>
-              <Form.Label>Войти</Form.Label>
+              <h2 className="text-center mb-4">Войти</h2>
               <Form.Group>
                 <Form.Control
                   ref={inputRef}
@@ -65,9 +65,11 @@ const LoginPage = () => {
                 />
                 <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
               </Form.Group>
-              <Button variant="outline-primary" type="submit">
-                Войти
-              </Button>
+              <div className="d-grid gap-2">
+                <Button variant="outline-primary" type="submit" size="lg">
+                  Войти
+                </Button>
+              </div>
             </Form>
           </div>
           <div className="card-footer p-4">
