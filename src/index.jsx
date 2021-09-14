@@ -5,11 +5,16 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
+import ReactDOM from 'react-dom';
+import React from 'react';
+
+import App from './App.jsx';
+
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const p = document.createElement('p');
+/* const p = document.createElement('p');
 p.classList.add('card-text');
 p.textContent = 'It works!';
 
@@ -23,9 +28,12 @@ cardBody.append(h5, p);
 
 const card = document.createElement('div');
 card.classList.add('card', 'text-center');
-card.append(cardBody);
+card.append(cardBody); */
 
 const container = document.querySelector('#chat');
-container.append(card);
+ReactDOM.render(
+  <App />,
+  container,
+);
 
 console.log('it works!');
