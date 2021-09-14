@@ -66,7 +66,7 @@ const LoginPage = () => {
                 <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
               </Form.Group>
               <div className="d-grid gap-2">
-                <Button variant="outline-primary" type="submit" size="lg">
+                <Button variant="outline-primary" type="submit">
                   Войти
                 </Button>
               </div>
@@ -74,7 +74,7 @@ const LoginPage = () => {
           </div>
           <div className="card-footer p-4">
             <div className="text-center">
-              <span>Нет аккаунта?</span>
+              <span>Нет аккаунта? </span>
               <a href="/signup">Регистрация</a>
             </div>
           </div>
