@@ -37,8 +37,8 @@ const LoginPage = () => {
       <div className="col-12 col-md-8 col-xxl-6">
         <div className="card shadow-sm">
           <div className="card-body row p-5">
-            <h2 className="text-center mt-5 mb-4">Войти</h2>
             <Form onSubmit={f.handleSubmit}>
+              <Form.Label>Войти</Form.Label>
               <Form.Group>
                 <Form.Control
                   ref={inputRef}
