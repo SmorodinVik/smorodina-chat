@@ -11,7 +11,8 @@ import {
 } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 
-import LoginPage from './LoginPage.jsx';
+import LoginPage from './Components/LoginPage.jsx';
+import ErrorPage from './Components/ErrorPage.jsx';
 
 export default () => (
   <Router>
@@ -20,11 +21,14 @@ export default () => (
     </Navbar>
     <div className="container-fluid h-100">
       <Switch>
+        <Route exact path="/">
+          <LoginPage />
+        </Route>
         <Route path="/login">
           <LoginPage />
         </Route>
         <Route path="/">
-          <LoginPage />
+          <ErrorPage />
         </Route>
       </Switch>
     </div>
