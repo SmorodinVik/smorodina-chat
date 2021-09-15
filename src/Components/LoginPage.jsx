@@ -3,10 +3,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
-import * as yup from 'yup';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+// import * as yup from 'yup';
+import useAuth from '../hooks/index.jsx';
+import routes from '../routes.js';
 
 const LoginPage = () => {
   const inputRef = useRef();
+  const auth = useAuth();
+  const history = useHistory();
   const [authFailed, setAuthFailed] = useState(false);
 
   useEffect(() => {
@@ -18,16 +24,15 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: ({ username, password }) => {
-      const schema = yup
-        .string()
-        .min(6)
-        .required();
+    onSubmit: async ({ username, password }) => {
       try {
-        schema.validateSync(username);
-        schema.validateSync(password);
+        const res = await axios.post(routes.loginPath(), { username, password });
+        auth.logIn();
+        localStorage.setItem('userId', JSON.stringify(res.data));
+        history.replace({ pathname: '/' });
       } catch (err) {
         setAuthFailed(true);
+        inputRef.current.select();
       }
     },
   });
