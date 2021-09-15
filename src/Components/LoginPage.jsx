@@ -34,9 +34,9 @@ const LoginPage = () => {
 
   return (
     <div className="row justify-content-center align-content-center h-100">
-      <div className="col-12 col-md-8 col-xxl-6">
+      <div className="col-md-3">
         <div className="card shadow-sm">
-          <div className="card-body row p-5">
+          <div className="card-body p-5">
             <Form onSubmit={f.handleSubmit}>
               <h2 className="text-center mb-4">Войти</h2>
               <Form.Group>
@@ -65,11 +65,9 @@ const LoginPage = () => {
                 />
                 <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
               </Form.Group>
-              <div className="d-grid gap-2">
-                <Button variant="outline-primary" type="submit">
-                  Войти
-                </Button>
-              </div>
+              <Button variant="outline-primary" type="submit">
+                Войти
+              </Button>
             </Form>
           </div>
           <div className="card-footer p-4">
