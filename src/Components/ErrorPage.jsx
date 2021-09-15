@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => (
-  <div className="row justify-content-center align-content-center h-100">
+  <div className="col justify-content-center align-content-center h-100">
     <p className="text-muted">страница не найдена</p>
     <p style={{ fontSize: '72px' }}>
       404
