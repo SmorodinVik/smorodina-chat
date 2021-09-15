@@ -18,7 +18,9 @@ export default () => (
   <div className="d-flex flex-column h-100">
     <Router>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
+        <div className="container">
+          <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
+        </div>
       </Navbar>
       <div className="container-fluid h-100">
         <Switch>
