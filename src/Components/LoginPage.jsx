@@ -36,7 +36,7 @@ const LoginPage = () => {
     <div className="row justify-content-center align-content-center h-100">
       <div className="col-md-4">
         <Card className="shadow-sm">
-          <Card.Body>
+          <Card.Body className="p-5">
             <Form onSubmit={f.handleSubmit}>
               <h2 className="text-center mb-4">Войти</h2>
               <Form.Group>
@@ -70,7 +70,7 @@ const LoginPage = () => {
               </Button>
             </Form>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer className="p-4">
             <div className="text-center">
               <span>Нет аккаунта? </span>
               <a href="/signup">Регистрация</a>
