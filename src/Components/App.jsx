@@ -34,18 +34,19 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-/* const PrivateRoute = ({ children, ...rest }) => {
+const PrivateRoute = ({ children, path }) => {
   const auth = useAuth();
 
   return (
     <Route
-      {...rest}
+      exact
+      path={path}
       render={({ location }) => (auth.loggedIn
         ? children
         : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
     />
   );
-}; */
+};
 
 const LogOutBtn = () => {
   const auth = useAuth();
@@ -67,16 +68,9 @@ export default () => (
         </Navbar>
         <div className="container-fluid h-100">
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={({ location }) => {
-                const auth = useContext(authContext);
-                return auth.loggedIn
-                  ? <ChatPage />
-                  : <Redirect to={{ pathname: './login', state: { from: location } }} />;
-              }}
-            />
+            <PrivateRoute path="/">
+              <ChatPage />
+            </PrivateRoute>
             <Route path="/login">
               <LoginPage />
             </Route>
@@ -89,4 +83,3 @@ export default () => (
     </AuthProvider>
   </div>
 );
-
