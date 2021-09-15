@@ -71,12 +71,12 @@ export default () => (
             <Route path="/login">
               <LoginPage />
             </Route>
-            <PrivateRoute path="/">
-              <ChatPage />
-            </PrivateRoute>
             <Route path="*">
               <ErrorPage />
             </Route>
+            <PrivateRoute path="/">
+              <ChatPage />
+            </PrivateRoute>
           </Switch>
         </div>
       </Router>
