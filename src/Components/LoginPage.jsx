@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 // import * as yup from 'yup';
 import useAuth from '../hooks/index.jsx';
@@ -78,7 +78,7 @@ const LoginPage = () => {
           <Card.Footer className="p-4">
             <div className="text-center">
               <span>Нет аккаунта? </span>
-              <a href="/signup">Регистрация</a>
+              <Link to="/signup">Регистрация</Link>
             </div>
           </Card.Footer>
         </Card>
