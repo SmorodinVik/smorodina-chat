@@ -19,7 +19,8 @@ import authContext from '../contexts/index.jsx';
 import useAuth from '../hooks/index.jsx';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const isLogged = !!localStorage.getItem('userId');
+  const [loggedIn, setLoggedIn] = useState(isLogged);
   const logIn = () => setLoggedIn(true);
   const logOut = () => {
     localStorage.removeItem('userId');
@@ -54,40 +55,38 @@ const LogOutBtn = () => {
     : null;
 };
 
-export default () => {
-  const auth = useAuth();
-  if (localStorage.getItem('userId')) {
-    console.log('fuck!');
-  }
-  return (
-    <div className="d-flex flex-column h-100">
-      <AuthProvider>
-        <Router>
-          <Navbar bg="light" expand="lg">
-            <div className="container">
-              <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
-              <LogOutBtn />
-            </div>
-          </Navbar>
-          <div className="container-fluid h-100">
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={({ location }) => (auth.loggedIn
-                  ? <ChatPage />
-                  : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
-              />
-              <Route path="/login">
-                <LoginPage />
-              </Route>
-              <Route path="*">
-                <ErrorPage />
-              </Route>
-            </Switch>
+export default () => (
+  <div className="d-flex flex-column h-100">
+    <AuthProvider>
+      <Router>
+        <Navbar bg="light" expand="lg">
+          <div className="container">
+            <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
+            <LogOutBtn />
           </div>
-        </Router>
-      </AuthProvider>
-    </div>
-  );
-};
+        </Navbar>
+        <div className="container-fluid h-100">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={({ location }) => {
+                const auth = useAuth();
+                return auth.loggedIn
+                  ? <ChatPage />
+                  : <Redirect to={{ pathname: './login', state: { from: location } }} />;
+              }}
+            />
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="*">
+              <ErrorPage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
+  </div>
+);
+
