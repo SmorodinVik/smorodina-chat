@@ -57,7 +57,7 @@ const LogOutBtn = () => {
 export default () => {
   const auth = useAuth();
   if (localStorage.getItem('userId')) {
-    auth.logIn();
+    console.log('fuck!');
   }
   return (
     <div className="d-flex flex-column h-100">
