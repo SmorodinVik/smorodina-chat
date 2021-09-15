@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Card } from 'react-bootstrap';
 import * as yup from 'yup';
 
 const LoginPage = () => {
@@ -35,8 +35,8 @@ const LoginPage = () => {
   return (
     <div className="row justify-content-center align-content-center h-100">
       <div className="col-md-4">
-        <div className="card shadow-sm">
-          <div className="card-body p-5">
+        <Card className="shadow-sm">
+          <Card.Body>
             <Form onSubmit={f.handleSubmit}>
               <h2 className="text-center mb-4">Войти</h2>
               <Form.Group>
@@ -69,14 +69,14 @@ const LoginPage = () => {
                 Войти
               </Button>
             </Form>
-          </div>
-          <div className="card-footer p-4">
+          </Card.Body>
+          <Card.Footer>
             <div className="text-center">
               <span>Нет аккаунта? </span>
               <a href="/signup">Регистрация</a>
             </div>
-          </div>
-        </div>
+          </Card.Footer>
+        </Card>
       </div>
     </div>
   );
