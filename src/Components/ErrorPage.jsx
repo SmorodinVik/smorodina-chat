@@ -1,9 +1,11 @@
 import React from 'react';
 
 export default () => (
-  <div className="container p-3">
-    <h1 className="text-center mb-4">404</h1>
-    <p className="text-center text-muted">страница не найдена</p>
+  <div className="row justify-content-center align-content-center h-100">
+    <p style={{ fontSize: '72px' }}>
+      404
+    </p>
+    <p className="text-muted">страница не найдена</p>
     <center>
       <a className="text-center" href="/login">на главную</a>
     </center>
