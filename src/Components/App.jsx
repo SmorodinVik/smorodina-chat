@@ -33,13 +33,13 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ path, children }) => {
   const auth = useAuth();
 
   return (
     <Route
       exact
-      path="./"
+      path={path}
       render={({ location }) => (auth.loggedIn
         ? children
         : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
@@ -67,7 +67,7 @@ export default () => (
         </Navbar>
         <div className="container-fluid h-100">
           <Switch>
-            <PrivateRoute>
+            <PrivateRoute path="/">
               <ChatPage />
             </PrivateRoute>
             <Route path="/login">
