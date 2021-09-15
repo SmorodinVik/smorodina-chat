@@ -1,6 +1,6 @@
 // @ts-check
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -71,7 +71,7 @@ export default () => (
               exact
               path="/"
               render={({ location }) => {
-                const auth = useAuth();
+                const auth = useContext(authContext);
                 return auth.loggedIn
                   ? <ChatPage />
                   : <Redirect to={{ pathname: './login', state: { from: location } }} />;
