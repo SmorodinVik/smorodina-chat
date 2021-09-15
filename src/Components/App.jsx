@@ -33,19 +33,18 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const PrivateRoute = ({ path, children }) => {
+/* const PrivateRoute = ({ children, ...rest }) => {
   const auth = useAuth();
 
   return (
     <Route
-      exact
-      path={path}
+      {...rest}
       render={({ location }) => (auth.loggedIn
         ? children
         : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
     />
   );
-};
+}; */
 
 const LogOutBtn = () => {
   const auth = useAuth();
@@ -55,30 +54,40 @@ const LogOutBtn = () => {
     : null;
 };
 
-export default () => (
-  <div className="d-flex flex-column h-100">
-    <AuthProvider>
-      <Router>
-        <Navbar bg="light" expand="lg">
-          <div className="container">
-            <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
-            <LogOutBtn />
+export default () => {
+  const auth = useAuth();
+  if (localStorage.getItem('userId')) {
+    auth.logIn();
+  }
+  return (
+    <div className="d-flex flex-column h-100">
+      <AuthProvider>
+        <Router>
+          <Navbar bg="light" expand="lg">
+            <div className="container">
+              <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
+              <LogOutBtn />
+            </div>
+          </Navbar>
+          <div className="container-fluid h-100">
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={({ location }) => (auth.loggedIn
+                  ? <ChatPage />
+                  : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
+              />
+              <Route path="/login">
+                <LoginPage />
+              </Route>
+              <Route path="/">
+                <ErrorPage />
+              </Route>
+            </Switch>
           </div>
-        </Navbar>
-        <div className="container-fluid h-100">
-          <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <PrivateRoute path="/">
-              <ChatPage />
-            </PrivateRoute>
-            <Route path="/">
-              <ErrorPage />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </AuthProvider>
-  </div>
-);
+        </Router>
+      </AuthProvider>
+    </div>
+  );
+};
