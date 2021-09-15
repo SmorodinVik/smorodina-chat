@@ -81,7 +81,7 @@ export default () => {
               <Route path="/login">
                 <LoginPage />
               </Route>
-              <Route path="/">
+              <Route path="*">
                 <ErrorPage />
               </Route>
             </Switch>

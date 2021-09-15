@@ -29,7 +29,7 @@ const LoginPage = () => {
         const res = await axios.post(routes.loginPath(), { username, password });
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(res.data));
-        history.replace({ pathname: '/' });
+        history.push('/');
       } catch (err) {
         setAuthFailed(true);
         inputRef.current.select();
