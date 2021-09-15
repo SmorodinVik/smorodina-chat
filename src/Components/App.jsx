@@ -1,6 +1,6 @@
 // @ts-check
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -68,12 +68,12 @@ export default () => (
         </Navbar>
         <div className="container-fluid h-100">
           <Switch>
-            <PrivateRoute path="/">
-              <ChatPage />
-            </PrivateRoute>
             <Route path="/login">
               <LoginPage />
             </Route>
+            <PrivateRoute path="/">
+              <ChatPage />
+            </PrivateRoute>
             <Route path="*">
               <ErrorPage />
             </Route>
