@@ -7,6 +7,6 @@ export default () => (
     <p className="text-center" style={{ fontSize: '72px' }}>
       404
     </p>
-    <Link className="text-center" to="/login">на главную</Link>
+    <Link className="text-center" to="/">на главную</Link>
   </div>
 );

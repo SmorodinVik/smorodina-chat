@@ -67,17 +67,17 @@ export default () => (
           </div>
         </Navbar>
         <div className="container-fluid h-100">
-          <PrivateRoute path="/">
-            <ChatPage />
-          </PrivateRoute>
           <Switch>
             <Route path="/login">
               <LoginPage />
             </Route>
-            <Route path="*">
-              <ErrorPage />
-            </Route>
+            <PrivateRoute path="/">
+              <ChatPage />
+            </PrivateRoute>
           </Switch>
+          <Route path="*">
+            <ErrorPage />
+          </Route>
         </div>
       </Router>
     </AuthProvider>
