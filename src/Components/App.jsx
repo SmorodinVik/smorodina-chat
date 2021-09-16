@@ -74,7 +74,7 @@ export default () => (
             <Route
               exact
               path="/"
-              render={({ location }) => (useAuth().loggedIn
+              render={({ location }) => (localStorage.getItem('userId')
                 ? <ChatPage />
                 : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
             />
