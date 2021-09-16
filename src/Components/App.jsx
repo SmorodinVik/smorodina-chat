@@ -74,10 +74,10 @@ export default () => (
             <PrivateRoute path="/">
               <ChatPage />
             </PrivateRoute>
+            <Route path="*">
+              <ErrorPage />
+            </Route>
           </Switch>
-          <Route path="*">
-            <ErrorPage />
-          </Route>
         </div>
       </Router>
     </AuthProvider>
