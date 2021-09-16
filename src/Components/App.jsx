@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-const PrivateRoute = ({ children, path }) => {
+/* const PrivateRoute = ({ children, path }) => {
   const auth = useAuth();
 
   return (
@@ -46,7 +46,7 @@ const PrivateRoute = ({ children, path }) => {
         : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
     />
   );
-};
+}; */
 
 const LogOutBtn = () => {
   const auth = useAuth();
@@ -71,9 +71,13 @@ export default () => (
             <Route path="/login">
               <LoginPage />
             </Route>
-            <PrivateRoute path="/">
-              <ChatPage />
-            </PrivateRoute>
+            <Route
+              exact
+              path="/"
+              render={({ location }) => (useAuth().loggedIn
+                ? <ChatPage />
+                : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
+            />
             <Route path="*">
               <ErrorPage />
             </Route>
