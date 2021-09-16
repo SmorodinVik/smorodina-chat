@@ -67,6 +67,9 @@ export default () => (
           </div>
         </Navbar>
         <div className="container-fluid h-100">
+          <PrivateRoute path="/">
+            <ChatPage />
+          </PrivateRoute>
           <Switch>
             <Route path="/login">
               <LoginPage />
@@ -74,9 +77,6 @@ export default () => (
             <Route path="*">
               <ErrorPage />
             </Route>
-            <PrivateRoute path="/">
-              <ChatPage />
-            </PrivateRoute>
           </Switch>
         </div>
       </Router>
