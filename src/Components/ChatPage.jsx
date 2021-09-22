@@ -1,12 +1,49 @@
 // @ts-check
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
+import {
+  Form, Button, InputGroup, Nav, Dropdown, ButtonGroup,
+} from 'react-bootstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import routes from '../routes.js';
+import * as actions from '../storeSlices/index.js';
 
-const Channels = () => {
-  console.log('channels');
+const mapStateToProps = (state) => state;
+
+const actionCreators = {
+  loadData: actions.loadData,
+};
+
+const Channels = ({ channels }) => {
+  const buildChannelList = (list) => list.map(({ id, name, removable }) => {
+    if (!removable) {
+      return (
+        <Nav.Item className="w-100" key={id}>
+          <Button variant="secondary-outline" className="w-100 rounded-0 text-left">
+            <span className="me-1"># </span>
+            {name}
+          </Button>
+        </Nav.Item>
+      );
+    }
+    return (
+      <Nav.Item className="w-100" key={id}>
+        <Dropdown as={ButtonGroup}>
+          <Button variant="secondary-outline" className="w-100 rounded-0 text-left text-truncate">
+            <span className="me-1"># </span>
+            {name}
+          </Button>
+          <Dropdown.Toggle split variant="secondary-outline" />
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => alert('Rename')}>Переименовать</Dropdown.Item>
+            <Dropdown.Item onClick={() => alert('Delete')}>Удалить</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Nav.Item>
+    );
+  });
+
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-4 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
@@ -15,19 +52,14 @@ const Channels = () => {
           <span>+</span>
         </button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-0">
-        <li className="nav-item w-100" key="1">
-          general
-        </li>
-        <li className="nav-item w-100" key="2">
-          random
-        </li>
-      </ul>
+      <Nav className="flex-column">
+        {channels && buildChannelList(channels)}
+      </Nav>
     </div>
   );
 };
 
-const Chat = () => {
+const MessageBox = () => {
   const inputRef = useRef();
 
   useEffect(() => {
@@ -72,7 +104,7 @@ const Chat = () => {
   );
 };
 
-export default () => {
+const Chat = ({ loadData = {}, channels = [] }) => {
   useEffect(() => {
     const { token } = JSON.parse(localStorage.getItem('userId'));
     const config = {
@@ -82,17 +114,19 @@ export default () => {
     };
     const getData = async () => {
       const res = await axios.get(routes.dataPath(), config);
+      loadData({ data: res.data });
     };
-    const timerId = setInterval(getData, 1000);
-    return () => clearInterval(timerId);
-  });
+    getData();
+  }, []);
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
-        <Channels />
-        <Chat />
+        <Channels channels={channels} />
+        <MessageBox />
       </div>
     </div>
   );
 };
+
+export default connect(mapStateToProps, actionCreators)(Chat);
