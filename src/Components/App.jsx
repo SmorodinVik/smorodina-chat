@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
 };
 
 /* const PrivateRoute = ({ children, path }) => {
-  const auth = useAuth();
+  const auth = useContext(authContext);
 
   return (
     <Route
@@ -60,29 +60,27 @@ export default () => (
   <div className="d-flex flex-column h-100">
     <AuthProvider>
       <Router>
-        <Navbar bg="light" expand="lg">
+        <Navbar className="shadow-sm" bg="light" expand="lg">
           <div className="container">
             <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
             <LogOutBtn />
           </div>
         </Navbar>
-        <div className="container-fluid h-100">
-          <Switch>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
-            <Route
-              exact
-              path="/"
-              render={({ location }) => (localStorage.getItem('userId')
-                ? <ChatPage />
-                : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
-            />
-            <Route path="*">
-              <ErrorPage />
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route path="/login">
+            <LoginPage />
+          </Route>
+          <Route
+            exact
+            path="/"
+            render={({ location }) => (localStorage.getItem('userId')
+              ? <ChatPage />
+              : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
+          />
+          <Route path="*">
+            <ErrorPage />
+          </Route>
+        </Switch>
       </Router>
     </AuthProvider>
   </div>

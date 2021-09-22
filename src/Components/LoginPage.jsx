@@ -38,50 +38,53 @@ const LoginPage = () => {
   });
 
   return (
-    <div className="row justify-content-center align-content-center h-100">
-      <div className="col-md-4">
-        <Card className="shadow-sm">
-          <Card.Body className="p-5">
-            <Form onSubmit={f.handleSubmit}>
-              <h2 className="text-center mb-4">Войти</h2>
-              <Form.Group>
-                <Form.Control
-                  ref={inputRef}
-                  placeholder="Ваш ник"
-                  name="username"
-                  autoComplete="username"
-                  required
-                  id="username"
-                  isInvalid={authFailed}
-                  onChange={f.handleChange}
-                  value={f.values.username}
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Control
-                  placeholder="Пароль"
-                  name="password"
-                  autoComplete="password"
-                  required
-                  id="password"
-                  isInvalid={authFailed}
-                  onChange={f.handleChange}
-                  value={f.values.password}
-                />
-                <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
-              </Form.Group>
-              <Button className="w-100 mb-3" variant="outline-primary" type="submit">
-                Войти
-              </Button>
-            </Form>
-          </Card.Body>
-          <Card.Footer className="p-4">
-            <div className="text-center">
-              <span>Нет аккаунта? </span>
-              <Link to="/signup">Регистрация</Link>
-            </div>
-          </Card.Footer>
-        </Card>
+    <div className="d-flex flex-column h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-md-4">
+          <Card className="shadow-sm">
+            <Card.Body className="p-5">
+              <Form onSubmit={f.handleSubmit}>
+                <h2 className="text-center mb-4">Войти</h2>
+                <Form.Group>
+                  <Form.Control
+                    ref={inputRef}
+                    placeholder="Ваш ник"
+                    name="username"
+                    autoComplete="username"
+                    required
+                    id="username"
+                    isInvalid={authFailed}
+                    onChange={f.handleChange}
+                    value={f.values.username}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Control
+                    type="password"
+                    placeholder="Пароль"
+                    name="password"
+                    autoComplete="password"
+                    required
+                    id="password"
+                    isInvalid={authFailed}
+                    onChange={f.handleChange}
+                    value={f.values.password}
+                  />
+                  <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+                </Form.Group>
+                <Button className="w-100 mb-3" variant="outline-primary" type="submit">
+                  Войти
+                </Button>
+              </Form>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>Нет аккаунта? </span>
+                <Link to="/signup">Регистрация</Link>
+              </div>
+            </Card.Footer>
+          </Card>
+        </div>
       </div>
     </div>
   );
