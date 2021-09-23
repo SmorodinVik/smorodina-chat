@@ -3,13 +3,11 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const { username } = JSON.parse(localStorage.getItem('userId'));
-
 const initialState = {
   channels: [],
   messages: [],
   currentChannelId: '',
-  currentUser: username,
+  currentUser: '',
 };
 
 const commonStore = createSlice({
