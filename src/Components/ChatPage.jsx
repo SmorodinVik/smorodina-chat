@@ -20,15 +20,18 @@ const socket = io();
 const Chat = ({ fetchData, addMessage, setUser }) => {
   useEffect(() => {
     const { token, username } = JSON.parse(localStorage.getItem('userId'));
+
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
+
     const getData = async () => {
       const res = await axios.get(routes.dataPath(), config);
       fetchData({ data: res.data });
     };
+
     getData();
     setUser({ user: username });
   }, []);

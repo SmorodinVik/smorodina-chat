@@ -18,31 +18,33 @@ const actionCreators = {
   fetchData: actions.fetchData,
 };
 
+const renderMessages = (list) => {
+  if (list.length === 0) {
+    return null;
+  }
+  return list.map(({ id, username, body }) => (
+    <div className="text-break mb-2" key={id}>
+      <b>{username}</b>
+      {': '}
+      {body}
+    </div>
+  ));
+};
+
 const MessageBox = ({
   messages, currentChannelId, currentUser, channels, socket,
 }) => {
   const inputRef = useRef();
+  const messagesEnd = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
+    messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
   });
 
   const filteredMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
   const channelName = currentChannel ? currentChannel.name : '';
-
-  const renderMessages = (list) => {
-    if (list.length === 0) {
-      return null;
-    }
-    return list.map(({ id, username, body }) => (
-      <div className="text-break mb-2" key={id}>
-        <b>{username}</b>
-        {': '}
-        {body}
-      </div>
-    ));
-  };
 
   const f = useFormik({
     initialValues: {
@@ -69,6 +71,7 @@ const MessageBox = ({
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {renderMessages(filteredMessages)}
+          <div ref={messagesEnd} />
         </div>
         <div className="mt-auto px-5 py-3">
           <Form onSubmit={f.handleSubmit}>
