@@ -1,13 +1,16 @@
 // @ts-check
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Form, Button, Nav, Dropdown, ButtonGroup,
+  Button, Nav, Dropdown, ButtonGroup,
 } from 'react-bootstrap';
 // import axios from 'axios';
 import { connect } from 'react-redux';
 // import routes from '../routes.js';
 import * as actions from '../storeSlices/index.js';
+import NewChannelModal from './Modals/NewChannelModal.jsx';
+import RemoveChannelModal from './Modals/RemoveChannelModal.jsx';
+import RenameChannelModal from './Modals/RenameChannelModal.jsx';
 
 const mapStateToProps = ({ channels, currentChannelId }) => ({
   channels, currentChannelId,
@@ -17,8 +20,25 @@ const actionCreators = {
   changeChannel: actions.changeChannel,
 };
 
-const Channels = ({ channels, currentChannelId, changeChannel }) => {
+const Channels = ({
+  channels, currentChannelId, changeChannel, socket,
+}) => {
+  const [newChannelModalShow, setNewChannelModalShow] = useState(false);
+  const [renameChannelModalShow, setRenameChannelModalShow] = useState(false);
+  const [removeChannelModalShow, setRemoveChannelModalShow] = useState(false);
+  const [selectedChannelId, setSelectedChannelId] = useState(null);
+
   const handleClick = (id) => () => changeChannel({ id });
+
+  const handleRemoveChannel = (id) => () => {
+    setSelectedChannelId(id);
+    setRemoveChannelModalShow(true);
+  };
+
+  const handleRenameChannel = (id) => () => {
+    setSelectedChannelId(id);
+    setRenameChannelModalShow(true);
+  };
 
   const buildChannelList = (list) => {
     if (list.length === 0) {
@@ -45,8 +65,8 @@ const Channels = ({ channels, currentChannelId, changeChannel }) => {
             </Button>
             <Dropdown.Toggle split variant={variant} />
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => alert('Rename')}>Переименовать</Dropdown.Item>
-              <Dropdown.Item onClick={() => alert('Delete')}>Удалить</Dropdown.Item>
+              <Dropdown.Item onClick={handleRenameChannel(id)}>Переименовать</Dropdown.Item>
+              <Dropdown.Item onClick={handleRemoveChannel(id)}>Удалить</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Nav.Item>
@@ -58,13 +78,30 @@ const Channels = ({ channels, currentChannelId, changeChannel }) => {
     <div className="col-4 col-md-2 border-end pt-5 px-4 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
         <span style={{ fontSize: '20px' }}>Каналы</span>
-        <button type="button" className="p-0 text-primary btn btn-group-vertical">
+        <button type="button" className="p-0 text-primary btn btn-group-vertical" onClick={() => setNewChannelModalShow(true)}>
           <span>+</span>
         </button>
       </div>
       <Nav className="flex-column">
         {buildChannelList(channels)}
       </Nav>
+      <NewChannelModal
+        newChannelModalShow={newChannelModalShow}
+        setNewChannelModalShow={setNewChannelModalShow}
+        socket={socket}
+      />
+      <RemoveChannelModal
+        removeChannelModalShow={removeChannelModalShow}
+        setRemoveChannelModalShow={setRemoveChannelModalShow}
+        channelId={selectedChannelId}
+        socket={socket}
+      />
+      <RenameChannelModal
+        renameChannelModalShow={renameChannelModalShow}
+        setRenameChannelModalShow={setRenameChannelModalShow}
+        channelId={selectedChannelId}
+        socket={socket}
+      />
     </div>
   );
 };

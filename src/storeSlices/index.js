@@ -21,6 +21,18 @@ const commonStore = createSlice({
     addMessage: (state, action) => {
       state.messages = [...state.messages, action.payload.message];
     },
+    addChannel: (state, action) => {
+      state.channels = [...state.channels, action.payload.channel];
+    },
+    removeChannel: (state, action) => {
+      state.channels = state.channels.filter((ch) => ch.id !== action.payload.id);
+      state.messages = state.messages.filter(({ channelId }) => channelId !== action.payload.id);
+    },
+    renameChannel: (state, action) => {
+      const { id, name } = action.payload.channel;
+      const channel = state.channels.find((ch) => ch.id === id);
+      channel.name = name;
+    },
     setUser: (state, actions) => {
       state.currentUser = actions.payload.user;
     },
@@ -29,6 +41,8 @@ const commonStore = createSlice({
 
 const { actions, reducer } = commonStore;
 
-export const { fetchData, changeChannel, addMessage, setUser } = actions;
+export const {
+  fetchData, changeChannel, addMessage, addChannel, removeChannel, setUser, renameChannel,
+} = actions;
 
 export default reducer;

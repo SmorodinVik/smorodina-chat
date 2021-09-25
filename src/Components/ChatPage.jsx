@@ -9,15 +9,30 @@ import * as actions from '../storeSlices/index.js';
 import Channels from './Channels.jsx';
 import MessageBox from './MessageBox.jsx';
 
+const mapStateToProps = ({ currentChannelId }) => ({ currentChannelId });
+
 const actionCreators = {
   fetchData: actions.fetchData,
   addMessage: actions.addMessage,
   setUser: actions.setUser,
+  addChannel: actions.addChannel,
+  removeChannel: actions.removeChannel,
+  changeChannel: actions.changeChannel,
+  renameChannel: actions.renameChannel,
 };
 
 const socket = io();
 
-const Chat = ({ fetchData, addMessage, setUser }) => {
+const Chat = ({
+  currentChannelId,
+  changeChannel,
+  fetchData,
+  addMessage,
+  addChannel,
+  removeChannel,
+  setUser,
+  renameChannel,
+}) => {
   useEffect(() => {
     const { token, username } = JSON.parse(localStorage.getItem('userId'));
 
@@ -40,6 +55,19 @@ const Chat = ({ fetchData, addMessage, setUser }) => {
     socket.on('newMessage', (message) => {
       addMessage({ message });
     });
+    socket.on('newChannel', (channel) => {
+      addChannel({ channel });
+    });
+    socket.on('removeChannel', ({ id }) => {
+      if (id === currentChannelId) {
+        changeChannel({ id: 1 });
+      }
+      removeChannel({ id });
+    });
+    socket.on('renameChannel', (channel) => {
+      renameChannel({ channel });
+    });
+
     return () => {
       socket.off();
     };
@@ -48,11 +76,11 @@ const Chat = ({ fetchData, addMessage, setUser }) => {
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
       <div className="row h-100 bg-white flex-md-row">
-        <Channels />
+        <Channels socket={socket} />
         <MessageBox socket={socket} />
       </div>
     </div>
   );
 };
 
-export default connect(null, actionCreators)(Chat);
+export default connect(mapStateToProps, actionCreators)(Chat);
