@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import {
   Button, Nav, Dropdown, ButtonGroup,
 } from 'react-bootstrap';
-// import axios from 'axios';
 import { connect } from 'react-redux';
-// import routes from '../routes.js';
 import * as actions from '../storeSlices/index.js';
 import NewChannelModal from './Modals/NewChannelModal.jsx';
 import RemoveChannelModal from './Modals/RemoveChannelModal.jsx';
@@ -96,12 +94,14 @@ const Channels = ({
         channelId={selectedChannelId}
         socket={socket}
       />
+      {renameChannelModalShow && (
       <RenameChannelModal
         renameChannelModalShow={renameChannelModalShow}
         setRenameChannelModalShow={setRenameChannelModalShow}
         channelId={selectedChannelId}
         socket={socket}
       />
+      )}
     </div>
   );
 };

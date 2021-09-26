@@ -1,16 +1,16 @@
 // @ts-check
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Form, Button, Modal,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
-// import axios from 'axios';
 import { connect } from 'react-redux';
-// import routes from '../routes.js';
 import * as actions from '../../storeSlices/index.js';
+import validateChannelName from '../../uitls.js';
 
 const mapStateToProps = ({ channels }) => ({
+  channelNames: channels.map(({ name }) => name),
   channels: channels.map(({ name }) => name),
 });
 
@@ -19,8 +19,12 @@ const actionCreators = {
 };
 
 const NewChannelModal = ({
-  newChannelModalShow, setNewChannelModalShow, socket, changeChannel,
+  newChannelModalShow, setNewChannelModalShow, socket, changeChannel, channelNames,
 }) => {
+  const [formDisabled, setFormDisabled] = useState(false);
+  const [formInvalid, setFormInvalid] = useState(false);
+  const [useError, setError] = useState('');
+
   const handleClose = () => setNewChannelModalShow(false);
   const inputRef = useRef();
 
@@ -36,16 +40,25 @@ const NewChannelModal = ({
       channelName: '',
     },
     onSubmit: ({ channelName }) => {
-      socket.emit('newChannel', {
-        name: channelName,
-      }, (response) => {
-        if (response.status === 'ok') {
-          const { id } = response.data;
-          changeChannel({ id });
-          f.resetForm();
-          handleClose();
-        }
-      });
+      const validate = validateChannelName(channelName, channelNames);
+      if (!validate) {
+        setFormInvalid(false);
+        setFormDisabled(true);
+        socket.emit('newChannel', {
+          name: channelName,
+        }, (response) => {
+          if (response.status === 'ok') {
+            setFormDisabled(false);
+            const { id } = response.data;
+            changeChannel({ id });
+            f.resetForm();
+            handleClose();
+          }
+        });
+      } else {
+        setError(validate);
+        setFormInvalid(true);
+      }
     },
   });
 
@@ -71,13 +84,15 @@ const NewChannelModal = ({
             id="channelName"
             onChange={f.handleChange}
             value={f.values.channelName}
+            disabled={formDisabled}
+            isInvalid={formInvalid}
           />
-          <Form.Control.Feedback type="invalid">Проблемы с сетью</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Отменить
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={formDisabled}>
               Добавить
             </Button>
           </Modal.Footer>

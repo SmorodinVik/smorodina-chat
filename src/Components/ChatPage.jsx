@@ -12,7 +12,9 @@ import MessageBox from './MessageBox.jsx';
 const mapStateToProps = ({ currentChannelId }) => ({ currentChannelId });
 
 const actionCreators = {
-  fetchData: actions.fetchData,
+  fetchDataRequest: actions.fetchDataRequest,
+  fetchDataFailure: actions.fetchDataFailure,
+  fetchDataSuccess: actions.fetchDataSuccess,
   addMessage: actions.addMessage,
   setUser: actions.setUser,
   addChannel: actions.addChannel,
@@ -26,7 +28,9 @@ const socket = io();
 const Chat = ({
   currentChannelId,
   changeChannel,
-  fetchData,
+  fetchDataRequest,
+  fetchDataFailure,
+  fetchDataSuccess,
   addMessage,
   addChannel,
   removeChannel,
@@ -42,12 +46,18 @@ const Chat = ({
       },
     };
 
-    const getData = async () => {
-      const res = await axios.get(routes.dataPath(), config);
-      fetchData({ data: res.data });
+    const fetchData = async () => {
+      fetchDataRequest();
+      try {
+        const res = await axios.get(routes.dataPath(), config);
+        fetchDataSuccess({ data: res.data });
+      } catch (e) {
+        console.log(e);
+        fetchDataFailure();
+      }
     };
 
-    getData();
+    fetchData();
     setUser({ user: username });
   }, []);
 

@@ -1,39 +1,59 @@
 // @ts-check
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Form, Button, Modal,
 } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import { useFormik } from 'formik';
+import validateChannelName from '../../uitls.js';
+
+const mapStateToProps = ({ channels }) => ({
+  channelNames: channels.map(({ name }) => name),
+  channelsById: channels.reduce((acc, { id, name }) => ({ ...acc, [id]: name }), {}),
+});
 
 const RenameChannelModal = ({
-  renameChannelModalShow, setRenameChannelModalShow, channelId, socket,
+  renameChannelModalShow, setRenameChannelModalShow, channelId, socket, channelNames, channelsById,
 }) => {
   const handleClose = () => setRenameChannelModalShow(false);
+
+  const [formDisabled, setFormDisabled] = useState(false);
+  const [formInvalid, setFormInvalid] = useState(false);
+  const [useError, setError] = useState('');
 
   const inputRef = useRef();
 
   useEffect(() => {
     if (inputRef.current) {
       // @ts-ignore
-      inputRef.current.focus();
+      inputRef.current.select();
     }
-  });
+  }, []);
 
   const f = useFormik({
     initialValues: {
-      channelName: 'hello',
+      channelName: channelsById[channelId],
     },
     onSubmit: ({ channelName }) => {
-      socket.emit('renameChannel', {
-        id: channelId,
-        name: channelName,
-      }, (response) => {
-        if (response.status === 'ok') {
-          f.resetForm();
-          handleClose();
-        }
-      });
+      const validate = validateChannelName(channelName, channelNames);
+      if (!validate) {
+        setFormInvalid(false);
+        setFormDisabled(true);
+        socket.emit('renameChannel', {
+          id: channelId,
+          name: channelName,
+        }, (response) => {
+          if (response.status === 'ok') {
+            setFormDisabled(false);
+            f.resetForm();
+            handleClose();
+          }
+        });
+      } else {
+        setError(validate);
+        setFormInvalid(true);
+      }
     },
   });
 
@@ -59,14 +79,16 @@ const RenameChannelModal = ({
             id="channelName"
             onChange={f.handleChange}
             value={f.values.channelName}
+            disabled={formDisabled}
+            isInvalid={formInvalid}
           />
-          <Form.Control.Feedback type="invalid">Проблемы с сетью</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Отменить
             </Button>
-            <Button variant="primary" type="submit">
-              Переименовать
+            <Button variant="primary" type="submit" disabled={formDisabled}>
+              Отправить
             </Button>
           </Modal.Footer>
         </Form>
@@ -75,4 +97,4 @@ const RenameChannelModal = ({
   );
 };
 
-export default RenameChannelModal;
+export default connect(mapStateToProps, null)(RenameChannelModal);

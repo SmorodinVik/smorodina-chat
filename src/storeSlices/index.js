@@ -8,13 +8,20 @@ const initialState = {
   messages: [],
   currentChannelId: '',
   currentUser: '',
+  dataFetchingState: 'none',
 };
 
 const commonStore = createSlice({
   name: 'commonStore',
   initialState,
   reducers: {
-    fetchData: (state, action) => ({ ...state, ...action.payload.data }),
+    fetchDataRequest: (state) => {
+      state.dataFetchingState = 'requested';
+    },
+    fetchDataFailure: (state) => {
+      state.dataFetchingState = 'failed';
+    },
+    fetchDataSuccess: (state, action) => ({ ...state, ...action.payload.data, dataFetchingState: 'finished' }),
     changeChannel: (state, action) => {
       state.currentChannelId = action.payload.id;
     },
@@ -42,7 +49,15 @@ const commonStore = createSlice({
 const { actions, reducer } = commonStore;
 
 export const {
-  fetchData, changeChannel, addMessage, addChannel, removeChannel, setUser, renameChannel,
+  fetchDataRequest,
+  fetchDataFailure,
+  fetchDataSuccess,
+  changeChannel,
+  addMessage,
+  addChannel,
+  removeChannel,
+  setUser,
+  renameChannel,
 } = actions;
 
 export default reducer;

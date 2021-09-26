@@ -32,15 +32,15 @@ const RemoveChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <p className="lead">Уверены?</p>
-        <div className="d-flex justify-content-end">
-          <Button variant="secondary" onClick={handleClose}>
-            Отменить
-          </Button>
-          <Button variant="danger" onClick={removeChannel(channelId)} className="btn-space">
-            Удалить
-          </Button>
-        </div>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Отменить
+        </Button>
+        <Button variant="danger" onClick={removeChannel(channelId)} className="btn-space">
+          Удалить
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };

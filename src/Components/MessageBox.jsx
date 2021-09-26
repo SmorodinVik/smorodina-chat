@@ -1,22 +1,15 @@
 // @ts-check
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
-// import axios from 'axios';
 import { connect } from 'react-redux';
-// import routes from '../routes.js';
-import * as actions from '../storeSlices/index.js';
 
 const mapStateToProps = ({
   messages, currentChannelId, currentUser, channels,
 }) => ({
   messages, currentChannelId, currentUser, channels,
 });
-
-const actionCreators = {
-  fetchData: actions.fetchData,
-};
 
 const renderMessages = (list) => {
   if (list.length === 0) {
@@ -36,9 +29,12 @@ const MessageBox = ({
 }) => {
   const inputRef = useRef();
   const messagesEnd = useRef();
+  const [formDisabled, setFormDisabled] = useState(false);
 
   useEffect(() => {
+    // @ts-ignore
     inputRef.current.focus();
+    // @ts-ignore
     messagesEnd.current.scrollIntoView({ behavior: 'smooth' });
   });
 
@@ -51,12 +47,17 @@ const MessageBox = ({
       messageText: '',
     },
     onSubmit: ({ messageText }) => {
+      setFormDisabled(true);
       socket.emit('newMessage', {
         body: messageText,
         channelId: currentChannelId,
         username: currentUser,
+      }, (response) => {
+        if (response.status === 'ok') {
+          setFormDisabled(false);
+          f.resetForm();
+        }
       });
-      f.resetForm();
     },
   });
 
@@ -85,9 +86,10 @@ const MessageBox = ({
                 id="messageText"
                 onChange={f.handleChange}
                 value={f.values.messageText}
+                disabled={formDisabled}
               />
               <Form.Control.Feedback type="invalid">Проблемы с сетью</Form.Control.Feedback>
-              <Button variant="outline-primary" type="submit" disabled={!f.values.messageText}>
+              <Button variant="outline-primary" type="submit" disabled={!f.values.messageText || formDisabled}>
                 Отправить
               </Button>
             </InputGroup>
@@ -98,4 +100,4 @@ const MessageBox = ({
   );
 };
 
-export default connect(mapStateToProps, actionCreators)(MessageBox);
+export default connect(mapStateToProps, null)(MessageBox);
