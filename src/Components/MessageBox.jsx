@@ -86,7 +86,6 @@ const MessageBox = ({
                 type="text"
                 placeholder="Введите сообщение..."
                 name="messageText"
-                autoComplete="messageText"
                 id="messageText"
                 onChange={f.handleChange}
                 value={f.values.messageText}

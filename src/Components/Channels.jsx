@@ -57,7 +57,12 @@ const Channels = ({
       return (
         <Nav.Item className="w-100" key={id}>
           <Dropdown as={ButtonGroup}>
-            <Button variant={variant} className="w-100 rounded-0 text-left text-truncate" onClick={handleClick(id)}>
+            <Button
+              variant={variant}
+              className="w-100 rounded-0 text-left d-inline-block text-truncate"
+              style={{ minWidth: '140px', maxWidth: '140px' }}
+              onClick={handleClick(id)}
+            >
               <span className="me-1"># </span>
               {name}
             </Button>
@@ -73,9 +78,9 @@ const Channels = ({
   };
 
   return (
-    <div className="col-4 col-md-2 border-end pt-5 px-4 bg-light">
+    <div className="col-4 col-md-2 border-end pt-5 px-3 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-        <span style={{ fontSize: '20px' }}>Каналы</span>
+        <span style={{ fontSize: '19px' }}>Каналы</span>
         <button type="button" className="p-0 text-primary btn btn-group-vertical" onClick={() => setNewChannelModalShow(true)}>
           <span>+</span>
         </button>
