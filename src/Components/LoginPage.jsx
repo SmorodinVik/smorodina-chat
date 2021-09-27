@@ -14,6 +14,7 @@ const LoginPage = () => {
   const auth = useAuth();
   const history = useHistory();
   const [authFailed, setAuthFailed] = useState(false);
+  const [formDisabled, setFormDisabled] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -25,6 +26,7 @@ const LoginPage = () => {
       password: '',
     },
     onSubmit: async ({ username, password }) => {
+      setFormDisabled(true);
       try {
         const res = await axios.post(routes.loginPath(), { username, password });
         auth.logIn();
@@ -32,6 +34,7 @@ const LoginPage = () => {
         history.push('/');
       } catch (err) {
         setAuthFailed(true);
+        setFormDisabled(false);
         inputRef.current.select();
       }
     },
@@ -56,6 +59,7 @@ const LoginPage = () => {
                     isInvalid={authFailed}
                     onChange={f.handleChange}
                     value={f.values.username}
+                    disabled={formDisabled}
                   />
                 </Form.Group>
                 <Form.Group>
@@ -63,16 +67,16 @@ const LoginPage = () => {
                     type="password"
                     placeholder="Пароль"
                     name="password"
-                    autoComplete="password"
                     required
                     id="password"
                     isInvalid={authFailed}
                     onChange={f.handleChange}
                     value={f.values.password}
+                    disabled={formDisabled}
                   />
                   <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
                 </Form.Group>
-                <Button className="w-100 mb-3" variant="outline-primary" type="submit">
+                <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
                   Войти
                 </Button>
               </Form>

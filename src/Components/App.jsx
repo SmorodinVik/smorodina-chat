@@ -15,6 +15,7 @@ import { Button, Navbar } from 'react-bootstrap';
 import LoginPage from './LoginPage.jsx';
 import ErrorPage from './ErrorPage.jsx';
 import ChatPage from './ChatPage.jsx';
+import SignUpPage from './SignUpPage.jsx';
 import authContext from '../contexts/index.jsx';
 import useAuth from '../hooks/index.jsx';
 
@@ -69,6 +70,9 @@ export default () => (
         <Switch>
           <Route path="/login">
             <LoginPage />
+          </Route>
+          <Route path="/signup">
+            <SignUpPage />
           </Route>
           <Route
             exact
