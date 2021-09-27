@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { connect } from 'react-redux';
+import { getNoun } from '../uitls.js';
 
 const mapStateToProps = ({
   messages, currentChannelId, currentUser, channels,
@@ -41,6 +42,9 @@ const MessageBox = ({
   const filteredMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
   const channelName = currentChannel ? currentChannel.name : '';
+  const messagesCount = filteredMessages.length;
+  const messageDec = getNoun(messagesCount, 'сообщение', 'сообщения', 'сообщений');
+  const messagesCountToString = `${messagesCount} ${messageDec}`;
 
   const f = useFormik({
     initialValues: {
@@ -68,7 +72,7 @@ const MessageBox = ({
           <p className="m-0">
             <b>{`# ${channelName}`}</b>
           </p>
-          <span className="text-muted">{`${filteredMessages.length} сообщений`}</span>
+          <span className="text-muted">{messagesCountToString}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {renderMessages(filteredMessages)}

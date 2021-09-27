@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
-import validateChannelName from '../../uitls.js';
+import { validateChannelName } from '../../uitls.js';
 
 const mapStateToProps = ({ channels }) => ({
   channelNames: channels.map(({ name }) => name),
