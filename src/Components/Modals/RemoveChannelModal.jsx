@@ -4,10 +4,13 @@ import React from 'react';
 import {
   Button, Modal,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannelModal = ({
   removeChannelModalShow, setRemoveChannelModalShow, channelId, socket,
 }) => {
+  const { t } = useTranslation();
+
   const handleClose = () => setRemoveChannelModalShow(false);
 
   const removeChannel = (id) => () => {
@@ -27,18 +30,18 @@ const RemoveChannelModal = ({
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Удалить канал
+          {t('modals.deleteChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modals.areYouShure')}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Отменить
+          {t('modals.buttons.cancel')}
         </Button>
         <Button variant="danger" onClick={removeChannel(channelId)} className="btn-space">
-          Удалить
+          {t('modals.buttons.delete')}
         </Button>
       </Modal.Footer>
     </Modal>

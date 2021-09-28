@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { validateChannelName } from '../../uitls.js';
 
 const mapStateToProps = ({ channels }) => ({
@@ -18,6 +19,7 @@ const RenameChannelModal = ({
 }) => {
   const handleClose = () => setRenameChannelModalShow(false);
 
+  const { t } = useTranslation();
   const [formDisabled, setFormDisabled] = useState(false);
   const [formInvalid, setFormInvalid] = useState(false);
   const [useError, setError] = useState('');
@@ -51,7 +53,7 @@ const RenameChannelModal = ({
           }
         });
       } else {
-        setError(validate);
+        setError(t(validate));
         setFormInvalid(true);
       }
     },
@@ -66,7 +68,7 @@ const RenameChannelModal = ({
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Переименовать канал
+          {t('modals.renameChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -85,10 +87,10 @@ const RenameChannelModal = ({
           <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Отменить
+              {t('modals.buttons.cancel')}
             </Button>
             <Button variant="primary" type="submit" disabled={formDisabled}>
-              Отправить
+              {t('modals.buttons.send')}
             </Button>
           </Modal.Footer>
         </Form>

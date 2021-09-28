@@ -11,11 +11,12 @@ import {
   // useParams,
 } from 'react-router-dom';
 import { Button, Navbar } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import LoginPage from './LoginPage.jsx';
 import ErrorPage from './ErrorPage.jsx';
 import ChatPage from './ChatPage.jsx';
-import SignUpPage from './SignUpPage.jsx';
+import SignupPage from './SignupPage.jsx';
 import authContext from '../contexts/index.jsx';
 import useAuth from '../hooks/index.jsx';
 
@@ -51,41 +52,46 @@ const AuthProvider = ({ children }) => {
 
 const LogOutBtn = () => {
   const auth = useAuth();
+  const { t } = useTranslation();
 
   return auth.loggedIn
-    ? <Button variant="primary" onClick={auth.logOut} as={Link} to="/login">Выйти</Button>
+    ? <Button variant="primary" onClick={auth.logOut} as={Link} to="/login">{t('exitBtn')}</Button>
     : null;
 };
 
-export default () => (
-  <div className="d-flex flex-column h-100">
-    <AuthProvider>
-      <Router>
-        <Navbar className="shadow-sm" bg="light" expand="lg">
-          <div className="container">
-            <Navbar.Brand as={Link} to="/">Smorodina Chat</Navbar.Brand>
-            <LogOutBtn />
-          </div>
-        </Navbar>
-        <Switch>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/signup">
-            <SignUpPage />
-          </Route>
-          <Route
-            exact
-            path="/"
-            render={({ location }) => (localStorage.getItem('userId')
-              ? <ChatPage />
-              : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
-          />
-          <Route path="*">
-            <ErrorPage />
-          </Route>
-        </Switch>
-      </Router>
-    </AuthProvider>
-  </div>
-);
+export default () => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="d-flex flex-column h-100">
+      <AuthProvider>
+        <Router>
+          <Navbar className="shadow-sm" bg="light" expand="lg">
+            <div className="container">
+              <Navbar.Brand as={Link} to="/">{t('logo')}</Navbar.Brand>
+              <LogOutBtn />
+            </div>
+          </Navbar>
+          <Switch>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/signup">
+              <SignupPage />
+            </Route>
+            <Route
+              exact
+              path="/"
+              render={({ location }) => (localStorage.getItem('userId')
+                ? <ChatPage />
+                : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
+            />
+            <Route path="*">
+              <ErrorPage />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthProvider>
+    </div>
+  );
+};

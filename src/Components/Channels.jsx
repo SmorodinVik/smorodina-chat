@@ -5,6 +5,7 @@ import {
   Button, Nav, Dropdown, ButtonGroup,
 } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import * as actions from '../storeSlices/index.js';
 import NewChannelModal from './Modals/NewChannelModal.jsx';
 import RemoveChannelModal from './Modals/RemoveChannelModal.jsx';
@@ -21,6 +22,8 @@ const actionCreators = {
 const Channels = ({
   channels, currentChannelId, changeChannel, socket,
 }) => {
+  const { t } = useTranslation();
+
   const [newChannelModalShow, setNewChannelModalShow] = useState(false);
   const [renameChannelModalShow, setRenameChannelModalShow] = useState(false);
   const [removeChannelModalShow, setRemoveChannelModalShow] = useState(false);
@@ -68,8 +71,8 @@ const Channels = ({
             </Button>
             <Dropdown.Toggle split variant={variant} />
             <Dropdown.Menu>
-              <Dropdown.Item onClick={handleRenameChannel(id)}>Переименовать</Dropdown.Item>
-              <Dropdown.Item onClick={handleRemoveChannel(id)}>Удалить</Dropdown.Item>
+              <Dropdown.Item onClick={handleRenameChannel(id)}>{t('chatPage.buttons.rename')}</Dropdown.Item>
+              <Dropdown.Item onClick={handleRemoveChannel(id)}>{t('chatPage.buttons.delete')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Nav.Item>
@@ -80,7 +83,7 @@ const Channels = ({
   return (
     <div className="col-4 col-md-2 border-end pt-5 px-3 bg-light">
       <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
-        <span style={{ fontSize: '19px' }}>Каналы</span>
+        <span style={{ fontSize: '19px' }}>{t('chatPage.channels')}</span>
         <button type="button" className="p-0 text-primary btn btn-group-vertical" onClick={() => setNewChannelModalShow(true)}>
           <span>+</span>
         </button>

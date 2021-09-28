@@ -5,10 +5,10 @@ import * as yup from 'yup';
 export const validateChannelName = (name, channelNames) => {
   const schema = yup
     .string()
-    .min(3, 'Не менее 3 символов')
-    .max(20, 'Не более 20 символов')
-    .notOneOf(channelNames, 'Упс, такой канал уже есть')
-    .required('Обязательное поле');
+    .min(3, 'modals.errors.notLessThan3Symb')
+    .max(20, 'modals.errors.notMoreThan20Symb')
+    .notOneOf(channelNames, 'modals.errors.channelExists')
+    .required('modals.errors.required');
 
   try {
     schema.validateSync(name);

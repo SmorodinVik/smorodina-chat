@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import * as actions from '../../storeSlices/index.js';
 import { validateChannelName } from '../../uitls.js';
 
@@ -21,6 +22,8 @@ const actionCreators = {
 const NewChannelModal = ({
   newChannelModalShow, setNewChannelModalShow, socket, changeChannel, channelNames,
 }) => {
+  const { t } = useTranslation();
+
   const [formDisabled, setFormDisabled] = useState(false);
   const [formInvalid, setFormInvalid] = useState(false);
   const [useError, setError] = useState('');
@@ -56,7 +59,7 @@ const NewChannelModal = ({
           }
         });
       } else {
-        setError(validate);
+        setError(t(validate));
         setFormInvalid(true);
       }
     },
@@ -71,7 +74,7 @@ const NewChannelModal = ({
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          Добавить канал
+          {t('modals.addChannel')}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -90,10 +93,10 @@ const NewChannelModal = ({
           <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Отменить
+              {t('modals.buttons.cancel')}
             </Button>
             <Button variant="primary" type="submit" disabled={formDisabled}>
-              Добавить
+              {t('modals.buttons.add')}
             </Button>
           </Modal.Footer>
         </Form>

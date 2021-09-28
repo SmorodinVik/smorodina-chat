@@ -4,8 +4,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useHistory, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-// import * as yup from 'yup';
 import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
 
@@ -13,6 +13,7 @@ const LoginPage = () => {
   const inputRef = useRef();
   const auth = useAuth();
   const history = useHistory();
+  const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const [formDisabled, setFormDisabled] = useState(false);
 
@@ -47,11 +48,11 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={f.handleSubmit}>
-                <h2 className="text-center mb-4">Войти</h2>
+                <h2 className="text-center mb-4">{t('loginPage.header')}</h2>
                 <Form.Group>
                   <Form.Control
                     ref={inputRef}
-                    placeholder="Ваш ник"
+                    placeholder={t('loginPage.name')}
                     name="username"
                     autoComplete="username"
                     required
@@ -65,7 +66,7 @@ const LoginPage = () => {
                 <Form.Group>
                   <Form.Control
                     type="password"
-                    placeholder="Пароль"
+                    placeholder={t('loginPage.pass')}
                     name="password"
                     required
                     id="password"
@@ -74,17 +75,17 @@ const LoginPage = () => {
                     value={f.values.password}
                     disabled={formDisabled}
                   />
-                  <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">{t('loginPage.errors.wrongNameOrPass')}</Form.Control.Feedback>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
-                  Войти
+                  {t('loginPage.enterBtn')}
                 </Button>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <Link to="/signup">Регистрация</Link>
+                <span>{t('loginPage.noAcc')}</span>
+                <Link to="/signup">{t('loginPage.registration')}</Link>
               </div>
             </Card.Footer>
           </Card>

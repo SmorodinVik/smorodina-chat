@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { getNoun } from '../uitls.js';
 
 const mapStateToProps = ({
   messages, currentChannelId, currentUser, channels,
@@ -30,6 +30,7 @@ const MessageBox = ({
 }) => {
   const inputRef = useRef();
   const messagesEnd = useRef();
+  const { t } = useTranslation();
   const [formDisabled, setFormDisabled] = useState(false);
 
   useEffect(() => {
@@ -42,9 +43,8 @@ const MessageBox = ({
   const filteredMessages = messages.filter(({ channelId }) => channelId === currentChannelId);
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
   const channelName = currentChannel ? currentChannel.name : '';
-  const messagesCount = filteredMessages.length;
-  const messageDec = getNoun(messagesCount, 'сообщение', 'сообщения', 'сообщений');
-  const messagesCountToString = `${messagesCount} ${messageDec}`;
+  const count = filteredMessages.length;
+  const messagesCountToString = t('chatPage.messages.message', { count });
 
   const f = useFormik({
     initialValues: {
@@ -84,16 +84,15 @@ const MessageBox = ({
               <Form.Control
                 ref={inputRef}
                 type="text"
-                placeholder="Введите сообщение..."
+                placeholder={t('chatPage.enterMessage')}
                 name="messageText"
                 id="messageText"
                 onChange={f.handleChange}
                 value={f.values.messageText}
                 disabled={formDisabled}
               />
-              <Form.Control.Feedback type="invalid">Проблемы с сетью</Form.Control.Feedback>
               <Button variant="outline-primary" type="submit" disabled={!f.values.messageText || formDisabled}>
-                Отправить
+                {t('chatPage.sendMessage')}
               </Button>
             </InputGroup>
           </Form>

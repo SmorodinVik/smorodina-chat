@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import axios from 'axios';
 // import * as yup from 'yup';
@@ -14,6 +15,7 @@ const SignUpPage = () => {
   const inputRef = useRef();
   const auth = useAuth();
   const history = useHistory();
+  const { t } = useTranslation();
 
   const [formDisabled, setFormDisabled] = useState(false);
   const [nameError, setNameError] = useState(null);
@@ -37,9 +39,9 @@ const SignUpPage = () => {
   const nameValidate = (name) => {
     const schema = yup
       .string()
-      .min(3, 'Не менее 3 символов')
-      .max(20, 'Не более 20 символов')
-      .required('Обязательное поле');
+      .min(3, t('signupPage.errors.notLessThan3Symb'))
+      .max(20, t('signupPage.errors.notMoreThan20Symb'))
+      .required(t('signupPage.errors.required'));
     try {
       schema.validateSync(name);
       return null;
@@ -51,8 +53,8 @@ const SignUpPage = () => {
   const passValidate = (pass) => {
     const schema = yup
       .string()
-      .min(6, 'Не менее 6 символов')
-      .required('Обязательное поле');
+      .min(6, t('signupPage.errors.notLessThan6Symb'))
+      .required(t('signupPage.errors.required'));
     try {
       schema.validateSync(pass);
       return null;
@@ -73,6 +75,7 @@ const SignUpPage = () => {
       const nameValidation = nameValidate(username);
       if (nameValidation) {
         setNameError(nameValidation);
+        inputRef.current.select();
         return;
       }
 
@@ -83,7 +86,7 @@ const SignUpPage = () => {
       }
 
       if (password !== passwordConfirmation) {
-        setConfirmPassError('Пароли должны совпадать');
+        setConfirmPassError(t('signupPage.errors.passwordsMustMatch'));
         return;
       }
       try {
@@ -95,7 +98,7 @@ const SignUpPage = () => {
       } catch (err) {
         setFormDisabled(false);
         if (err.response.status === 409) {
-          setNameError('Пользователь с таким именем уже существует');
+          setNameError(t('signupPage.errors.userAlreadyExists'));
         }
         console.log(err);
         inputRef.current.select();
@@ -110,11 +113,11 @@ const SignUpPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="p-5">
               <Form onSubmit={f.handleSubmit}>
-                <h2 className="text-center mb-4">Регистрация</h2>
+                <h2 className="text-center mb-4">{t('signupPage.header')}</h2>
                 <Form.Group>
                   <Form.Control
                     ref={inputRef}
-                    placeholder="Имя пользователя"
+                    placeholder={t('signupPage.name')}
                     name="username"
                     autoComplete="username"
                     required
@@ -129,7 +132,7 @@ const SignUpPage = () => {
                 <Form.Group>
                   <Form.Control
                     type="password"
-                    placeholder="Пароль"
+                    placeholder={t('signupPage.pass')}
                     name="password"
                     required
                     id="password"
@@ -143,7 +146,7 @@ const SignUpPage = () => {
                 <Form.Group>
                   <Form.Control
                     type="password"
-                    placeholder="Подтвердите пароль"
+                    placeholder={t('signupPage.passConf')}
                     name="passwordConfirmation"
                     required
                     id="passwordConfirmation"
@@ -155,7 +158,7 @@ const SignUpPage = () => {
                   <Form.Control.Feedback type="invalid">{confirmPassError}</Form.Control.Feedback>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
-                  Зарегистрироваться
+                  {t('signupPage.regBtn')}
                 </Button>
               </Form>
             </Card.Body>
