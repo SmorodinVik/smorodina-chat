@@ -10,7 +10,7 @@ export default {
       noAcc: 'Нет аккаунта? ',
       registration: 'Регистрация',
       errors: {
-        wrongNameOrPass: 'Неверное имя пользователя или пароль',
+        wrongNameOrPass: 'Неверные имя пользователя или пароль',
       },
     },
     signupPage: {
@@ -20,8 +20,8 @@ export default {
       pass: 'Пароль',
       passConf: 'Подтвердите пароль',
       errors: {
-        notLessThan3Symb: 'Не менее 3 символов',
-        notMoreThan20Symb: 'Не более 20 символов',
+        notLessThan3Symb: 'От 3 до 20 символов',
+        notMoreThan20Symb: 'От 3 до 20 символов',
         notLessThan6Symb: 'Не менее 6 символов',
         required: 'Обязательное поле',
         passwordsMustMatch: 'Пароли должны совпадать',
@@ -54,9 +54,9 @@ export default {
         delete: 'Удалить',
       },
       errors: {
-        notLessThan3Symb: 'Не менее 3 символов',
-        notMoreThan20Symb: 'Не более 20 символов',
-        channelExists: 'Упс, такой канал уже есть',
+        notLessThan3Symb: 'От 3 до 20 символов',
+        notMoreThan20Symb: 'От 3 до 20 символов',
+        channelExists: 'Должно быть уникальным',
         required: 'Обязательное поле',
       },
     },
