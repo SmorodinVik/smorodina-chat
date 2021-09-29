@@ -7,7 +7,7 @@ import store from './store.js';
 import './i18n.js';
 import Router from './Components/Router.jsx';
 
-const container = document.querySelector('#chat');
+const container = document.getElementById('chat');
 
 export default () => {
   ReactDOM.render(
