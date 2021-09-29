@@ -9,5 +9,5 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-window.addEventListener('load', app);
+app();
 
