@@ -89,6 +89,7 @@ const NewChannelModal = ({
             value={f.values.channelName}
             disabled={formDisabled}
             isInvalid={formInvalid}
+            data-testid="add-channel"
           />
           <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>

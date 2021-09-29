@@ -90,6 +90,7 @@ const MessageBox = ({
                 onChange={f.handleChange}
                 value={f.values.messageText}
                 disabled={formDisabled}
+                data-testid="new-message"
               />
               <Button variant="outline-primary" type="submit" disabled={!f.values.messageText || formDisabled}>
                 {t('chatPage.sendMessage')}

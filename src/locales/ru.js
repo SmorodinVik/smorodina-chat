@@ -1,6 +1,6 @@
 export default {
   translation: {
-    logo: 'Smorodina Chat',
+    logo: 'Hexlet Chat',
     exitBtn: 'Выйти',
     loginPage: {
       header: 'Войти',

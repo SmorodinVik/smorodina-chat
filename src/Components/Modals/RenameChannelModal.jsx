@@ -83,6 +83,7 @@ const RenameChannelModal = ({
             value={f.values.channelName}
             disabled={formDisabled}
             isInvalid={formInvalid}
+            data-testid="rename-channel"
           />
           <Form.Control.Feedback type="invalid">{useError}</Form.Control.Feedback>
           <Modal.Footer>

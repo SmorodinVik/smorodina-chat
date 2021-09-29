@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.1",
-  "description": "simple chat made with react",
+  "description": "simple chat made with react and redux",
   "main": "src/index.js",
   "type": "module",
   "engines": {
