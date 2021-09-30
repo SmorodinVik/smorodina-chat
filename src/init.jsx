@@ -7,11 +7,8 @@ import store from './store.js';
 import './i18n.js';
 import App from './Components/App.jsx';
 
-export default () => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('chat'),
-  );
-};
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
