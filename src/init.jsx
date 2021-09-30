@@ -12,6 +12,6 @@ export default () => {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('chat') || document.createElement('div'),
+    document.getElementById('chat'),
   );
 };
