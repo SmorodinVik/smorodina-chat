@@ -13,4 +13,6 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
+export default run;
+
 ReactDOM.render(run(), document.getElementById('chat'));
