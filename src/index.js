@@ -11,4 +11,4 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-run();
+export default () => run();
