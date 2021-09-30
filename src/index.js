@@ -4,6 +4,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
+import './i18n.js';
 
 import run from './init.jsx';
 
@@ -12,4 +13,3 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 run();
-
