@@ -7,8 +7,8 @@ import store from './store.js';
 import './i18n.js';
 import App from './Components/App.jsx';
 
-export default () => {
-  console.log('what the fuck?');
+export default (x) => {
+  console.log(x);
   ReactDOM.render(
     <Provider store={store}>
       <App />
