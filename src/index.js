@@ -15,4 +15,4 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default run;
 
-ReactDOM.render(run(), document.getElementById('chat'));
+// ReactDOM.render(run(), document.getElementById('chat'));
