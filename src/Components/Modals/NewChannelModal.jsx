@@ -96,7 +96,7 @@ const NewChannelModal = ({
             <Button variant="secondary" onClick={handleClose}>
               {t('modals.buttons.cancel')}
             </Button>
-            <Button variant="primary" type="submit" disabled={formDisabled}>
+            <Button variant="primary" type="submit" role="button">
               {t('modals.buttons.send')}
             </Button>
           </Modal.Footer>
