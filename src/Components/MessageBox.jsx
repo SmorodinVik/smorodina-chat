@@ -56,7 +56,7 @@ const MessageBox = ({
       messageText: '',
     },
     onSubmit: ({ messageText }) => {
-      setFormDisabled(true);
+      // setFormDisabled(true);
       const newMessage = {
         body: messageText,
         channelId: currentChannelId,
@@ -66,7 +66,7 @@ const MessageBox = ({
       addMessage({ message });
       socket.emit('newMessage', newMessage, (response) => {
         if (response.status === 'ok') {
-          setFormDisabled(false);
+          // setFormDisabled(false);
           f.resetForm();
         }
       });
