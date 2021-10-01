@@ -28,7 +28,6 @@ const NewChannelModal = ({
   const [formInvalid, setFormInvalid] = useState(false);
   const [useError, setError] = useState('');
 
-  const handleClose = () => setNewChannelModalShow(false);
   const inputRef = useRef();
 
   useEffect(() => {
@@ -55,7 +54,7 @@ const NewChannelModal = ({
             const { id } = response.data;
             changeChannel({ id });
             f.resetForm();
-            handleClose();
+            setNewChannelModalShow(false);
           }
         });
       } else {
@@ -64,6 +63,11 @@ const NewChannelModal = ({
       }
     },
   });
+
+  const handleClose = () => {
+    f.resetForm();
+    setNewChannelModalShow(false);
+  };
 
   return (
     <Modal
@@ -84,7 +88,6 @@ const NewChannelModal = ({
             type="text"
             name="channelName"
             autoComplete="channelName"
-            id="channelName"
             onChange={f.handleChange}
             value={f.values.channelName}
             disabled={formDisabled}
@@ -96,7 +99,7 @@ const NewChannelModal = ({
             <Button variant="secondary" onClick={handleClose}>
               {t('modals.buttons.cancel')}
             </Button>
-            <Button variant="primary" type="submit" role="button">
+            <Button variant="primary" type="submit" role="button" disabled={formDisabled}>
               {t('modals.buttons.send')}
             </Button>
           </Modal.Footer>
