@@ -94,7 +94,7 @@ const MessageBox = ({
                 data-testid="new-message"
               />
               <Button variant="outline-primary" type="submit" disabled={!f.values.messageText || formDisabled}>
-                {t('chatPage.sendMessage')}
+                <span>{t('chatPage.sendMessage')}</span>
               </Button>
             </InputGroup>
           </Form>
