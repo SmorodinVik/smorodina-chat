@@ -54,8 +54,6 @@ export default {
       },
       errors: {
         from3To20Symb: 'От 3 до 20 символов',
-        // notLessThan3Symb: 'От 3 до 20 символов',
-        // notMoreThan20Symb: 'От 3 до 20 символов',
         channelExists: 'Должно быть уникальным',
         required: 'Обязательное поле',
       },

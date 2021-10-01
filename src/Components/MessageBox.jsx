@@ -94,7 +94,6 @@ const MessageBox = ({
                 type="text"
                 placeholder={t('chatPage.enterMessage')}
                 name="messageText"
-                id="messageText"
                 onChange={f.handleChange}
                 value={f.values.messageText}
                 disabled={formDisabled}
