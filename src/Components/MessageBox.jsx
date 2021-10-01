@@ -92,6 +92,7 @@ const MessageBox = ({
               <Form.Control
                 ref={inputRef}
                 type="text"
+                id="messageText"
                 placeholder={t('chatPage.enterMessage')}
                 name="messageText"
                 onChange={f.handleChange}

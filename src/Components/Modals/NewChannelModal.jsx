@@ -84,6 +84,7 @@ const NewChannelModal = ({
             type="text"
             name="channelName"
             autoComplete="channelName"
+            id="channelName"
             onChange={f.handleChange}
             value={f.values.channelName}
             disabled={formDisabled}
