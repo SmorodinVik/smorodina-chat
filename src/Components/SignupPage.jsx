@@ -2,7 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form, Card } from 'react-bootstrap';
+import {
+  Button, Form, Card, FloatingLabel,
+} from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
@@ -115,47 +117,65 @@ const SignUpPage = () => {
               <Form onSubmit={f.handleSubmit}>
                 <h2 className="text-center mb-4">{t('signupPage.header')}</h2>
                 <Form.Group>
-                  <Form.Control
-                    ref={inputRef}
-                    placeholder={t('signupPage.name')}
-                    name="username"
-                    autoComplete="username"
-                    required
-                    id="username"
-                    isInvalid={nameError}
-                    onChange={f.handleChange}
-                    value={f.values.username}
-                    disabled={formDisabled}
-                  />
-                  <Form.Control.Feedback type="invalid">{nameError}</Form.Control.Feedback>
+                  <FloatingLabel
+                    controlId="username"
+                    label={t('signupPage.name')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      ref={inputRef}
+                      placeholder={t('signupPage.name')}
+                      name="username"
+                      autoComplete="username"
+                      required
+                      id="username"
+                      isInvalid={nameError}
+                      onChange={f.handleChange}
+                      value={f.values.username}
+                      disabled={formDisabled}
+                    />
+                    <Form.Control.Feedback type="invalid">{nameError}</Form.Control.Feedback>
+                  </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Control
-                    type="password"
-                    placeholder={t('signupPage.pass')}
-                    name="password"
-                    required
-                    id="password"
-                    isInvalid={passError}
-                    onChange={f.handleChange}
-                    value={f.values.password}
-                    disabled={formDisabled}
-                  />
-                  <Form.Control.Feedback type="invalid">{passError}</Form.Control.Feedback>
+                  <FloatingLabel
+                    controlId="password"
+                    label={t('signupPage.pass')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="password"
+                      placeholder={t('signupPage.pass')}
+                      name="password"
+                      required
+                      id="password"
+                      isInvalid={passError}
+                      onChange={f.handleChange}
+                      value={f.values.password}
+                      disabled={formDisabled}
+                    />
+                    <Form.Control.Feedback type="invalid">{passError}</Form.Control.Feedback>
+                  </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Control
-                    type="password"
-                    placeholder={t('signupPage.passConf')}
-                    name="passwordConfirmation"
-                    required
-                    id="passwordConfirmation"
-                    isInvalid={confirmPassError}
-                    onChange={f.handleChange}
-                    value={f.values.passwordConfirmation}
-                    disabled={formDisabled}
-                  />
-                  <Form.Control.Feedback type="invalid">{confirmPassError}</Form.Control.Feedback>
+                  <FloatingLabel
+                    controlId="passwordConfirmation"
+                    label={t('signupPage.passConf')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="password"
+                      placeholder={t('signupPage.passConf')}
+                      name="passwordConfirmation"
+                      required
+                      id="passwordConfirmation"
+                      isInvalid={confirmPassError}
+                      onChange={f.handleChange}
+                      value={f.values.passwordConfirmation}
+                      disabled={formDisabled}
+                    />
+                    <Form.Control.Feedback type="invalid">{confirmPassError}</Form.Control.Feedback>
+                  </FloatingLabel>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
                   {t('signupPage.regBtn')}

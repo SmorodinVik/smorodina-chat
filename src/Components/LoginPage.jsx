@@ -2,7 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form, Card } from 'react-bootstrap';
+import {
+  Button, Form, Card, FloatingLabel,
+} from 'react-bootstrap';
 import { useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -50,32 +52,44 @@ const LoginPage = () => {
               <Form onSubmit={f.handleSubmit}>
                 <h2 className="text-center mb-4">{t('loginPage.header')}</h2>
                 <Form.Group>
-                  <Form.Control
-                    ref={inputRef}
-                    placeholder={t('loginPage.name')}
-                    name="username"
-                    autoComplete="username"
-                    required
-                    id="username"
-                    isInvalid={authFailed}
-                    onChange={f.handleChange}
-                    value={f.values.username}
-                    disabled={formDisabled}
-                  />
+                  <FloatingLabel
+                    controlId="username"
+                    label={t('loginPage.name')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      ref={inputRef}
+                      placeholder={t('loginPage.name')}
+                      name="username"
+                      autoComplete="username"
+                      required
+                      id="username"
+                      isInvalid={authFailed}
+                      onChange={f.handleChange}
+                      value={f.values.username}
+                      disabled={formDisabled}
+                    />
+                  </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
-                  <Form.Control
-                    type="password"
-                    placeholder={t('loginPage.pass')}
-                    name="password"
-                    required
-                    id="password"
-                    isInvalid={authFailed}
-                    onChange={f.handleChange}
-                    value={f.values.password}
-                    disabled={formDisabled}
-                  />
-                  <Form.Control.Feedback type="invalid">{t('loginPage.errors.wrongNameOrPass')}</Form.Control.Feedback>
+                  <FloatingLabel
+                    controlId="password"
+                    label={t('loginPage.pass')}
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="password"
+                      placeholder={t('loginPage.pass')}
+                      name="password"
+                      required
+                      id="password"
+                      isInvalid={authFailed}
+                      onChange={f.handleChange}
+                      value={f.values.password}
+                      disabled={formDisabled}
+                    />
+                    <Form.Control.Feedback type="invalid">{t('loginPage.errors.wrongNameOrPass')}</Form.Control.Feedback>
+                  </FloatingLabel>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
                   {t('loginPage.enterBtn')}
