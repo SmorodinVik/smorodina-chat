@@ -5,6 +5,11 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import * as actions from '../storeSlices/index.js';
+
+const actionCreators = {
+  addMessage: actions.addMessage,
+};
 
 const mapStateToProps = ({
   messages, currentChannelId, currentUser, channels,
@@ -26,7 +31,7 @@ const renderMessages = (list) => {
 };
 
 const MessageBox = ({
-  messages, currentChannelId, currentUser, channels, socket,
+  messages, addMessage, currentChannelId, currentUser, channels, socket,
 }) => {
   const inputRef = useRef();
   const messagesEnd = useRef();
@@ -52,14 +57,17 @@ const MessageBox = ({
     },
     onSubmit: ({ messageText }) => {
       setFormDisabled(true);
-      socket.emit('newMessage', {
+      const newMessage = {
         body: messageText,
         channelId: currentChannelId,
         username: currentUser,
-      }, (response) => {
+      };
+      socket.emit('newMessage', newMessage, (response) => {
         if (response.status === 'ok') {
           setFormDisabled(false);
           f.resetForm();
+          const message = { ...newMessage, id: currentChannelId + 100 };
+          addMessage({ message });
         }
       });
     },
@@ -103,4 +111,4 @@ const MessageBox = ({
   );
 };
 
-export default connect(mapStateToProps, null)(MessageBox);
+export default connect(mapStateToProps, actionCreators)(MessageBox);

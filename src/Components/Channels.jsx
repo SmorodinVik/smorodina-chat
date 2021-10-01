@@ -50,7 +50,7 @@ const Channels = ({
       if (!removable) {
         return (
           <Nav.Item className="w-100" key={id}>
-            <Button variant={variant} className="w-100 rounded-0 text-left" onClick={handleClick(id)}>
+            <Button variant={variant} className="w-100 rounded-0 text-start" onClick={handleClick(id)}>
               <span className="me-1"># </span>
               {name}
             </Button>
@@ -62,7 +62,7 @@ const Channels = ({
           <Dropdown as={ButtonGroup}>
             <Button
               variant={variant}
-              className="w-100 rounded-0 text-left d-inline-block text-truncate"
+              className="w-100 rounded-0 text-start d-inline-block text-truncate"
               style={{ minWidth: '140px', maxWidth: '140px' }}
               onClick={handleClick(id)}
             >

@@ -9,7 +9,7 @@ import * as actions from '../storeSlices/index.js';
 import Channels from './Channels.jsx';
 import MessageBox from './MessageBox.jsx';
 
-const mapStateToProps = ({ currentChannelId }) => ({ currentChannelId });
+const mapStateToProps = ({ currentChannelId, currentUser }) => ({ currentChannelId, currentUser });
 
 const actionCreators = {
   fetchDataRequest: actions.fetchDataRequest,
@@ -27,6 +27,7 @@ const socket = io();
 
 const Chat = ({
   currentChannelId,
+  currentUser,
   changeChannel,
   fetchDataRequest,
   fetchDataFailure,
@@ -63,7 +64,9 @@ const Chat = ({
 
   useEffect(() => {
     socket.on('newMessage', (message) => {
-      addMessage({ message });
+      if (message.username !== currentUser) {
+        addMessage({ message });
+      }
     });
     socket.on('newChannel', (channel) => {
       addChannel({ channel });
