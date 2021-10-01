@@ -18,7 +18,7 @@ export default run;
 
 const container = document.getElementById('chat');
 
-const socket = io({ transports: ['websocket'] });
+const socket = io();
 
 if (container) {
   ReactDOM.render(run(socket), document.getElementById('chat'));
