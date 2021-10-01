@@ -62,7 +62,7 @@ const MessageBox = ({
         channelId: currentChannelId,
         username: currentUser,
       };
-      const message = { ...newMessage, id: currentChannelId + 100 };
+      const message = { ...newMessage, id: messageText };
       addMessage({ message });
       socket.emit('newMessage', newMessage, (response) => {
         if (response.status === 'ok') {
