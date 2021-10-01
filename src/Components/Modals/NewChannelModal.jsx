@@ -52,10 +52,10 @@ const NewChannelModal = ({
         }, (response) => {
           if (response.status === 'ok') {
             setFormDisabled(false);
+            handleClose();
             const { id } = response.data;
             changeChannel({ id });
             f.resetForm();
-            handleClose();
           }
         });
       } else {
