@@ -9,7 +9,6 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import axios from 'axios';
-// import * as yup from 'yup';
 import useAuth from '../hooks/index.jsx';
 import routes from '../routes.js';
 
@@ -20,9 +19,7 @@ const SignUpPage = () => {
   const { t } = useTranslation();
 
   const [formDisabled, setFormDisabled] = useState(false);
-  const [nameError, setNameError] = useState(null);
-  const [passError, setPassError] = useState(null);
-  const [confirmPassError, setConfirmPassError] = useState(null);
+  const [signupError, setSignupError] = useState(null);
 
   useEffect(() => {
     auth.logOut();
@@ -32,67 +29,33 @@ const SignUpPage = () => {
     inputRef.current.focus();
   }, []);
 
-  const resetErrors = () => {
-    setNameError(null);
-    setPassError(null);
-    setConfirmPassError(null);
-  };
-
-  const nameValidate = (name) => {
-    const schema = yup
+  const validationSchema = yup.object().shape({
+    username: yup
       .string()
-      .min(3, t('signupPage.errors.notLessThan3Symb'))
-      .max(20, t('signupPage.errors.notMoreThan20Symb'))
-      .required(t('signupPage.errors.required'));
-    try {
-      schema.validateSync(name);
-      return null;
-    } catch (err) {
-      return err.message;
-    }
-  };
-
-  const passValidate = (pass) => {
-    const schema = yup
+      .required(t('signupPage.errors.required'))
+      .min(3, t('signupPage.errors.from3To20Symb'))
+      .max(20, t('signupPage.errors.from3To20Symb')),
+    password: yup
       .string()
-      .min(6, t('signupPage.errors.notLessThan6Symb'))
-      .required(t('signupPage.errors.required'));
-    try {
-      schema.validateSync(pass);
-      return null;
-    } catch (err) {
-      return err.message;
-    }
-  };
+      .required(t('signupPage.errors.required'))
+      .min(6, t('signupPage.errors.notLessThan6Symb')),
+    confirmPassword: yup
+      .string()
+      .required(t('signupPage.errors.required'))
+      .oneOf([yup.ref('password')], 'signupPage.errors.passwordsMustMatch'),
+  });
 
   const f = useFormik({
+    validationSchema,
     initialValues: {
       username: '',
       password: '',
-      passwordConfirmation: '',
+      confirmPassword: '',
     },
-    onSubmit: async ({ username, password, passwordConfirmation }) => {
-      resetErrors();
-
-      const nameValidation = nameValidate(username);
-      if (nameValidation) {
-        setNameError(nameValidation);
-        inputRef.current.select();
-        return;
-      }
-
-      const passValidation = passValidate(password);
-      if (passValidation) {
-        setPassError(passValidation);
-        return;
-      }
-
-      if (password !== passwordConfirmation) {
-        setConfirmPassError(t('signupPage.errors.passwordsMustMatch'));
-        return;
-      }
+    onSubmit: async ({ username, password }) => {
       try {
         setFormDisabled(true);
+        setSignupError(null);
         const res = await axios.post(routes.signupPath(), { username, password });
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(res.data));
@@ -100,7 +63,7 @@ const SignUpPage = () => {
       } catch (err) {
         setFormDisabled(false);
         if (err.response.status === 409) {
-          setNameError(t('signupPage.errors.userAlreadyExists'));
+          setSignupError('signupPage.errors.userAlreadyExists');
         }
         console.log(err);
         inputRef.current.select();
@@ -129,12 +92,12 @@ const SignUpPage = () => {
                       autoComplete="username"
                       required
                       id="username"
-                      isInvalid={nameError}
+                      isInvalid={f.errors.username || signupError}
                       onChange={f.handleChange}
                       value={f.values.username}
                       disabled={formDisabled}
                     />
-                    <Form.Control.Feedback type="invalid">{nameError}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid" tooltip>{t(f.errors.username)}</Form.Control.Feedback>
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
@@ -149,32 +112,32 @@ const SignUpPage = () => {
                       name="password"
                       required
                       id="password"
-                      isInvalid={passError}
+                      isInvalid={f.errors.password || signupError}
                       onChange={f.handleChange}
                       value={f.values.password}
                       disabled={formDisabled}
                     />
-                    <Form.Control.Feedback type="invalid">{passError}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid" tooltip>{t(f.errors.password)}</Form.Control.Feedback>
                   </FloatingLabel>
                 </Form.Group>
                 <Form.Group>
                   <FloatingLabel
-                    controlId="passwordConfirmation"
-                    label={t('signupPage.passConf')}
+                    controlId="confirmPassword"
+                    label={t('signupPage.confirmPass')}
                     className="mb-3"
                   >
                     <Form.Control
                       type="password"
-                      placeholder={t('signupPage.passConf')}
-                      name="passwordConfirmation"
+                      placeholder={t('signupPage.confirmPass')}
+                      name="confirmPassword"
                       required
-                      id="passwordConfirmation"
-                      isInvalid={confirmPassError}
+                      id="confirmPassword"
+                      isInvalid={f.errors.confirmPassword || signupError}
                       onChange={f.handleChange}
-                      value={f.values.passwordConfirmation}
+                      value={f.values.confirmPassword}
                       disabled={formDisabled}
                     />
-                    <Form.Control.Feedback type="invalid">{confirmPassError}</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid" tooltip>{t(f.errors.confirmPassword) || t(signupError)}</Form.Control.Feedback>
                   </FloatingLabel>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>

@@ -5,8 +5,8 @@ import * as yup from 'yup';
 export const validateChannelName = (name, channelNames) => {
   const schema = yup
     .string()
-    .min(3, 'modals.errors.notLessThan3Symb')
-    .max(20, 'modals.errors.notMoreThan20Symb')
+    .min(3, 'modals.errors.from3To20Symb')
+    .max(20, 'modals.errors.from3To20Symb')
     .notOneOf(channelNames, 'modals.errors.channelExists')
     .required('modals.errors.required');
 
