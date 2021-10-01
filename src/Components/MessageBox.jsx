@@ -62,12 +62,12 @@ const MessageBox = ({
         channelId: currentChannelId,
         username: currentUser,
       };
+      const message = { ...newMessage, id: currentChannelId + 100 };
+      addMessage({ message });
       socket.emit('newMessage', newMessage, (response) => {
         if (response.status === 'ok') {
           setFormDisabled(false);
           f.resetForm();
-          const message = { ...newMessage, id: currentChannelId + 100 };
-          addMessage({ message });
         }
       });
     },
