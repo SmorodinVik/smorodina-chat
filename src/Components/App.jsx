@@ -7,8 +7,6 @@ import {
   Route,
   Link,
   Redirect,
-  // useRouteMatch,
-  // useParams,
 } from 'react-router-dom';
 import { Button, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -59,7 +57,7 @@ const LogOutBtn = () => {
     : null;
 };
 
-export default () => {
+export default ({ socket }) => {
   const { t } = useTranslation();
 
   return (
@@ -83,7 +81,7 @@ export default () => {
               exact
               path="/"
               render={({ location }) => (localStorage.getItem('userId')
-                ? <ChatPage />
+                ? <ChatPage socket={socket} />
                 : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
             />
             <Route path="*">

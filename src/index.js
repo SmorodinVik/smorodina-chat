@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
 
 import ReactDOM from 'react-dom';
+import io from 'socket.io-client';
 
 import run from './init.jsx';
 
@@ -17,6 +18,8 @@ export default run;
 
 const container = document.getElementById('chat');
 
+const socket = io({ transports: ['websocket'] });
+
 if (container) {
-  ReactDOM.render(run(), document.getElementById('chat'));
+  ReactDOM.render(run(socket), document.getElementById('chat'));
 }

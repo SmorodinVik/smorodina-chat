@@ -55,7 +55,6 @@ const NewChannelModal = ({
             const { id } = response.data;
             changeChannel({ id });
             f.resetForm();
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             handleClose();
           }
         });

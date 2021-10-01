@@ -1,7 +1,6 @@
 // @ts-check
 
 import React, { useEffect } from 'react';
-import io from 'socket.io-client';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import routes from '../routes.js';
@@ -23,9 +22,8 @@ const actionCreators = {
   renameChannel: actions.renameChannel,
 };
 
-const socket = io({ transports: ['websocket'] });
-
 const Chat = ({
+  socket,
   currentChannelId,
   changeChannel,
   fetchDataRequest,
