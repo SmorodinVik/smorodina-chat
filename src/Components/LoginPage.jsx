@@ -88,7 +88,9 @@ const LoginPage = () => {
                       value={f.values.password}
                       disabled={formDisabled}
                     />
-                    <Form.Control.Feedback type="invalid">{t('loginPage.errors.wrongNameOrPass')}</Form.Control.Feedback>
+                    {authFailed && (
+                      <Form.Control.Feedback type="invalid" tooltip>{t('loginPage.errors.wrongNameOrPass')}</Form.Control.Feedback>
+                    )}
                   </FloatingLabel>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="outline-primary" type="submit" disabled={formDisabled}>
