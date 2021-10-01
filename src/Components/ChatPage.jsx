@@ -64,7 +64,6 @@ const Chat = ({
       addMessage({ message });
     });
     socket.on('newChannel', (channel) => {
-      console.log('NEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEWNEW');
       addChannel({ channel });
     });
     socket.on('removeChannel', ({ id }) => {

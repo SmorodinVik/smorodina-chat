@@ -48,7 +48,6 @@ export default {
       areYouShure: 'Уверены?',
       buttons: {
         cancel: 'Отменить',
-        add: 'Добавить',
         send: 'Отправить',
         delete: 'Удалить',
       },

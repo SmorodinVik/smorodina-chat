@@ -52,10 +52,10 @@ const NewChannelModal = ({
         }, (response) => {
           if (response.status === 'ok') {
             setFormDisabled(false);
-            handleClose();
             const { id } = response.data;
             changeChannel({ id });
             f.resetForm();
+            handleClose();
           }
         });
       } else {
@@ -97,7 +97,7 @@ const NewChannelModal = ({
               {t('modals.buttons.cancel')}
             </Button>
             <Button variant="primary" type="submit" disabled={formDisabled}>
-              {t('modals.buttons.add')}
+              {t('modals.buttons.send')}
             </Button>
           </Modal.Footer>
         </Form>
