@@ -52,12 +52,14 @@ const LogOutBtn = () => {
   const auth = useAuth();
   const { t } = useTranslation();
 
+  // @ts-ignore
   return auth.loggedIn
+    // @ts-ignore
     ? <Button variant="primary" onClick={auth.logOut} as={Link} to="/login">{t('exitBtn')}</Button>
     : null;
 };
 
-export default ({ socket }) => {
+const App = ({ socket }) => {
   const { t } = useTranslation();
 
   return (
@@ -93,3 +95,5 @@ export default ({ socket }) => {
     </div>
   );
 };
+
+export default App;

@@ -7,8 +7,10 @@ import store from './store.js';
 import './i18n.js';
 import App from './Components/App.jsx';
 
-export default (socket) => (
+const run = (socket) => (
   <Provider store={store}>
     <App socket={socket} />
   </Provider>
 );
+
+export default run;

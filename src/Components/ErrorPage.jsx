@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default () => (
+const ErrorPage = () => (
   <div className="d-flex flex-column h-100">
     <div className="col justify-content-center align-content-center d-flex flex-column h-100">
       <p className="text-muted text-center">страница не найдена</p>
@@ -12,3 +12,5 @@ export default () => (
     </div>
   </div>
 );
+
+export default ErrorPage;
