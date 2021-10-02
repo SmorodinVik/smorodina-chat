@@ -84,8 +84,8 @@ const MessageBox = ({
             <InputGroup className="mb-3">
               <Form.Control
                 ref={inputRef}
-                type="text"
                 id="messageText"
+                type="text"
                 placeholder={t('chatPage.enterMessage')}
                 name="messageText"
                 onChange={f.handleChange}
