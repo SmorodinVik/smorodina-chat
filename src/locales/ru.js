@@ -30,7 +30,7 @@ export default {
     chatPage: {
       channels: 'Каналы',
       enterMessage: 'Введите сообщение',
-      sendMessage: 'Послать',
+      sendMessage: 'Отправить',
       messages: {
         message_one: '{{count}} сообщение',
         message_few: '{{count}} сообщения',
