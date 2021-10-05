@@ -34,20 +34,6 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-/* const PrivateRoute = ({ children, path }) => {
-  const auth = useContext(authContext);
-
-  return (
-    <Route
-      exact
-      path={path}
-      render={({ location }) => (auth.loggedIn
-        ? children
-        : <Redirect to={{ pathname: './login', state: { from: location } }} />)}
-    />
-  );
-}; */
-
 const LogOutBtn = () => {
   const auth = useAuth();
   const { t } = useTranslation();

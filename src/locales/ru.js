@@ -1,6 +1,6 @@
 export default {
   translation: {
-    logo: 'Hexlet Chat',
+    logo: 'Smorodina Chat',
     exitBtn: 'Выйти',
     loginPage: {
       header: 'Войти',
@@ -40,6 +40,11 @@ export default {
         rename: 'Переименовать',
         delete: 'Удалить',
       },
+    },
+    errorPage: {
+      pageNotFound: 'страница не найдена',
+      errCode: '404',
+      toTheMain: 'на главную',
     },
     modals: {
       addChannel: 'Добавить канал',

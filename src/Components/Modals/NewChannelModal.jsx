@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import * as actions from '../../storeSlices/index.js';
-import { validateChannelName } from '../../uitls.js';
+import validateChannelName from '../../uitls.js';
 
 const mapStateToProps = ({ channels }) => ({
   channelNames: channels.map(({ name }) => name),
