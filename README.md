@@ -4,7 +4,7 @@
 
 This is a real-time application built using react (with hooks), redux toolkit, bootstrap. The interface is similar to Slack chat.
 
-#### To try it, follow the link below:
+To try it, follow the link below:
 
 ### [Smorodina Chat](https://slack-chat-90210.herokuapp.com/)
 
