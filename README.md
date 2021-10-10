@@ -8,5 +8,5 @@ To try it, follow the link below:
 
 ### [Smorodina Chat](https://slack-chat-90210.herokuapp.com/)
 
-*(The project is deployed on [Heroku](https://heroku.com/), so it may take some time to build and run it.)*
+*(The project is deployed on [Heroku](https://heroku.com/), so it may take some time to build and run it)*
 
