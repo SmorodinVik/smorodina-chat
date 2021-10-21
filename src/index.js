@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
 const run = async () => {
   const container = document.getElementById('chat');
   const socket = await io({ transports: ['websocket'] });
-  ReactDOM.render(init(socket), document.getElementById('chat'));
+  ReactDOM.render(init(socket), container);
 };
 
 run();
