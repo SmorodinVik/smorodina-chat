@@ -8,17 +8,16 @@ import '../assets/application.scss';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 
-import run from './init.jsx';
+import init from './init.jsx';
 
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-export default run;
+const run = async () => {
+  const container = document.getElementById('chat');
+  const socket = await io({ transports: ['websocket'] });
+  ReactDOM.render(init(socket), document.getElementById('chat'));
+};
 
-const container = document.getElementById('chat');
-
-if (container) {
-  const socket = io({ transports: ['websocket'] });
-  ReactDOM.render(run(socket), document.getElementById('chat'));
-}
+run();
